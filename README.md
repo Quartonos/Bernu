@@ -1,5 +1,5 @@
 # Bernu
-A DOS like interface, you can run it on most microcontrollers that supports micropython. Not big of a deal (yet)
+A DOS like interface, you can run it on most microcontrollers that supports micropython. 
 
 ## Commands
 These are the main thing to use in the so-called "OS"
