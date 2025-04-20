@@ -1,10 +1,32 @@
 import os
+from microbit import *
+import music
+
+IM1 = Image(
+    "10100:"
+    "02020:"
+    "00303:"
+    "04040:"
+    "00505"
+)
+
+IM2 = Image(
+    "54321:"
+    "50001:"
+    "54321:"
+    "50001:"
+    "54321:"
+)
 
 i4 = "Y"
+
+display.show([IM1, IM2], loop=False, delay=1000)
 
 c = None
 a = open("cf.tst", "r")
 b = open("main.py", "r")
+
+music.play(['C5:4', 'D4:4', 'D4:4'])
 
 def scandisk():
     print("Starting Scandisk...")
@@ -13,7 +35,7 @@ def scandisk():
         print("Scandisk MAY found the problem:")
         d = input("Does Bernu launch Scandisk because one of core files has been edited? If yes, then type Y.. ")
         if d == "Y":
-            print("Perfect! This means that the reference file is NOT identical at the reference file.")
+            print("Perfect! This means that the reference file is NOT identical at the Bernu Core file.")
             e = input("Do you want to fix Bernu core files? If yes, then type Y.. ")
             if e == "Y":
                 os.remove("cf.tst")
@@ -31,7 +53,7 @@ with open('cf.tst', 'r') as ref, open('main.py', 'r') as test:
         print("WARNING: A Bernu core file has been edited. You may got a virus. Reflashing Bernu MAY be obbligatory if you encounter problems..")
         while not c == "i understand":
             c = input("Type in 'i understand' to continue using Bernu: ")
-            scandisk()
+        scandisk()
     
 
 while True:
@@ -69,12 +91,21 @@ while True:
             
     if c == "SEE":
         i8 = input("Type in what file to see: ")
-        f = open(i8, "r")
-        print(f.read())
+        try:
+            f = open(i8, "r")
+            print(f.read())
+        except Exception:
+            print("error.")
         
-    if c == "EXIT":
-        while True:
-            input()
+    if c == "DRV":
+        print("This software can help you run .py programs")
+        print("For example, you name the filename of the .py program and will run.")
+        print("Just remember that the .py program should not have required PyPI Libraries.")
+        try:
+            __import__(input("Name the filename of the .py to start: "))
+        except Exception:
+            print("unknown  error")
+        
             
     if c == "UGR":
         print("This software can help you upgrade Bernu.")
@@ -89,4 +120,7 @@ while True:
                 __import__(i10)
             except Exception as e:
                 print(e, ": Did you name only the filename?")
+                break
+
+ 
             
