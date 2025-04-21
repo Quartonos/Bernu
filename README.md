@@ -13,3 +13,5 @@ These are the main thing to use in the so-called "OS"
 You can turn your microcontroller in a computer (still the microcontroller is **paralised**)
 ### What is a paralised microcontroller??
 A microcontroller that can't control any external modules.
+
+[Security and support in Bernu](SECURITY.md)
