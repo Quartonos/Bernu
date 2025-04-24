@@ -1,6 +1,42 @@
 import os
 from microbit import *
 import music
+import bjson
+
+
+def ls(path="settings.json"):
+    try:
+        with open(path) as f:
+            return bjson.loads(f.read())
+    except:
+        return {}
+    
+def sas(settings, path="settings.json"):
+    with open(path, "w") as f:
+        f.write(bjson.dumps(settings))
+
+def ss(key, value, path="settings.json"):
+    settings = load_settings(path)
+    settings[key] = value
+    ss(settings)
+
+def gbs(settings, key, default=False):
+    value = settings.get(key, default)
+    if isinstance(value, str):
+        if value.lower() == "true":
+            return True
+        elif value.lower() == "false":
+            return False
+    return value
+
+def cs(key, value, path="settings.json"):
+    settings = ls(path)
+    settings[key] = value
+    sas(settings)
+    
+
+
+settings = ls()
 
 IM1 = Image(
     "10100:"
@@ -21,14 +57,19 @@ IM2 = Image(
 i4 = "Y"
 
 display.show([IM1, IM2], loop=False, delay=1000)
+ref = open('cf.tst', 'r')
+test = open('main.py', 'r')
 
 c = None
 a = open("cf.tst", "r")
 b = open("main.py", "r")
 
-music.play(['C5:4', 'D4:4', 'D4:4'])
+if gbs(settings, "start", True):
+    music.play(['A5:1', 'C4:2', 'F4:2', 'C4:4', 'A5:2'])
 
 def scandisk():
+    a = open("cf.tst", "r")
+    b = open("main.py", "r")
     print("Starting Scandisk...")
     print("Finding the problem..")
     if not a == b:
@@ -121,6 +162,23 @@ while True:
             except Exception as e:
                 print(e, ": Did you name only the filename?")
                 break
+            
+    if c == "PY":
+        print("To return to Bernu, type 'import main'")
+        break
+    
+    if c == "SET":
+        print("Welcome to Bernu Settings!")
+        print("1. Startup Noise")
+        i11 = input("What option do you want to edit?")
+        if i11 == "1":
+            print("'OFF' or 'ON'?")
+            i12 = input("Respond.. ")
+            if i12 == "ON":
+                cs("start", True)
+            elif i12 == "OFF":
+                cs("start", False)
+            break
 
  
             
